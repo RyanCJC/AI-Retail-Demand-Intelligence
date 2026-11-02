@@ -1,0 +1,36 @@
+# Data processing
+numpy
+pandas
+polars
+pyarrow
+duckdb
+
+# Data visualisation
+matplotlib
+plotly
+
+# Machine learning
+scikit-learn
+lightgbm
+catboost
+optuna
+shap
+
+# Experiment tracking
+mlflow
+
+# Backend and API
+fastapi
+uvicorn[standard]
+pydantic
+
+# Testing and code quality
+pytest
+hypothesis
+ruff
+
+# Utilities
+python-dotenv
+PyYAML
+joblib
+tqdm

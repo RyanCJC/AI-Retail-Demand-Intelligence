@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+.venv/
+venv/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Data
+data/raw/
+data/interim/
+data/processed/
+*.parquet
+*.csv
+*.zip
+
+# ML experiments and model artifacts
+mlruns/
+mlartifacts/
+mlflow.db
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.ckpt
+models/
+
+# Frontend
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Testing and linting
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
