@@ -16,7 +16,7 @@ The M5 Forecasting Accuracy dataset provides daily unit-sales history for 30,490
 Key findings from the EDA:
 
 - Demand is highly intermittent: **68.0% of all series-day observations are zero sales**.
-- Demand-pattern classification (Syntetos–Boylan) shows **72.66% of series are intermittent**, 18.27% lumpy, 6.24% smooth, and 2.82% erratic; no series are entirely without demand.
+- Demand-pattern classification (Syntetos–Boylan) shows **72.65% of series are intermittent**, 18.25% lumpy, 6.26% smooth, and 2.85% erratic; no series are entirely without demand.
 - Sales peak on weekends (Saturday highest) and are strongest in late summer; November and December are the weakest months on average.
 - Average daily sales are higher on SNAP days than non-SNAP days in all three states (CA, TX, WI), a descriptive association only — no causal claim is made.
 - Event days show a slightly lower mean daily sales but substantially higher variability than non-event days.
@@ -204,7 +204,7 @@ Not performed. SNAP differences across product categories were not computed in t
 
 ### Methodology (Syntetos–Boylan)
 
-Each of the 30,490 product-store series was classified using two measures computed over the active period (first non-zero sale day through the final observed day):
+Each of the 30,490 product-store series was classified using two measures computed over the active period (first non-zero sale day through the last non-zero sale day):
 
 - **ADI (Average Demand Interval):** `active_period / number_of_nonzero_days` — average number of periods between non-zero demand occurrences.
 - **CV² (Squared Coefficient of Variation):** `var(nonzero_demand) / mean(nonzero_demand)^2` — variability of non-zero demand sizes.
@@ -224,10 +224,10 @@ Series with no demand at all would be classed `no_demand`; none occurred in this
 
 | Demand class | Series | % of series | Mean ADI | Mean CV² | Zero-sales share (active days) |
 |---|---:|---:|---:|---:|---:|
-| Intermittent | 22,155 | 72.66% | 4.92 | 0.283 | 67.11% |
-| Lumpy | 5,572 | 18.27% | 2.90 | 0.772 | 53.43% |
-| Smooth | 1,903 | 6.24% | 1.17 | 0.368 | 13.97% |
-| Erratic | 860 | 2.82% | 1.21 | 0.695 | 16.74% |
+| Intermittent | 22,150 | 72.65% | 4.89 | 0.283 | 67.11% |
+| Lumpy | 5,564 | 18.25% | 2.89 | 0.772 | 53.43% |
+| Smooth | 1,908 | 6.26% | 1.17 | 0.368 | 13.97% |
+| Erratic | 868 | 2.85% | 1.21 | 0.695 | 16.74% |
 | **Total** | **30,490** | **100.00%** | — | — | — |
 | No demand | 0 | 0.00% | — | — | — |
 

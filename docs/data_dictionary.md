@@ -127,13 +127,13 @@ Each row records the unit selling price (`sell_price`) for a specific item (`ite
 
 ### Primary / composite keys
 - **Sales:** `id` is the unique series key; `(item_id, store_id)` identifies a product-store pair.
-- **Calendar:** `d` is the unique day key; `date` and `wm_yr_wk` are also unique per day.
+- **Calendar:** `d` is the unique daily identifier; `date` is the unique calendar date; `wm_yr_wk` is a weekly identifier shared by multiple dates belonging to the same retail week.
 - **Sell prices:** no single unique column; `(store_id, item_id, wm_yr_wk)` forms the natural composite key for a price observation.
 
 ### Join notes
 - Sales metadata joins to prices on `item_id` and `store_id`; because prices are weekly, one series maps to many price rows over time.
 - Daily sales columns map one-to-one to calendar days via `d` (e.g. `d_1` → the calendar row where `d == 'd_1'`).
-- Weekly prices map to calendar dates via `wm_yr_wk`; a date's week can be looked up from `calendar.wm_yr_wk`.
+- Weekly prices map to calendar dates via `wm_yr_wk`; a date's week can be looked up from `calendar.wm_yr_wk`. Joining prices to daily sales on `wm_yr_wk`, `item_id`, and `store_id` is a many-to-many expansion: one retail week maps to multiple calendar dates, and one item-store pair has prices across many weeks.
 
 ---
 
@@ -152,7 +152,7 @@ The following variables were created in the notebooks and persisted to `data/met
 | `store_id` | sales | copied | Store identifier |
 | `state_id` | sales | copied | State identifier |
 | `first_demand_day` | sales matrix | 1-indexed position of first non-zero sale: `int(nonzero_positions[0] + 1)`; `NaN` if no demand | First day the series recorded a sale |
-| `active_period` | sales matrix | `number_of_days - nonzero_positions[0]`; `0` if no demand | Days from first sale through the final observed day |
+| `active_period` | sales matrix | `last_nonzero_position - first_nonzero_position + 1` (1-indexed); `0` if no demand | Days from first non-zero sale through last non-zero sale |
 | `nonzero_days` | sales matrix | Count of days with sales > 0 | Number of active sales days |
 | `zero_days_active` | sales matrix | `active_period - nonzero_days` | Number of zero-sales days within the active period |
 | `adi` | sales matrix | `active_period / len(nonzero_demand)`; `NaN` if no demand | Average Demand Interval: mean days between non-zero demand |
@@ -163,10 +163,10 @@ The following variables were created in the notebooks and persisted to `data/met
 
 | Demand class | Series | % of series |
 |---|---:|---:|
-| Intermittent | 22,155 | 72.66% |
-| Lumpy | 5,572 | 18.27% |
-| Smooth | 1,903 | 6.24% |
-| Erratic | 860 | 2.82% |
+| Intermittent | 22,150 | 72.65% |
+| Lumpy | 5,564 | 18.25% |
+| Smooth | 1,908 | 6.26% |
+| Erratic | 868 | 2.85% |
 | No demand | 0 | 0.00% |
 
 ### Inline derived features (`notebooks/02_EDA.ipynb`)

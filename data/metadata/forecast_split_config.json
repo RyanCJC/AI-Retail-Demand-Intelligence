@@ -1,0 +1,33 @@
+{
+    "forecast_horizon": 28,
+    "development_folds": [
+        {
+            "fold": 1,
+            "train_end": 1801,
+            "validation_start": 1802,
+            "validation_end": 1829
+        },
+        {
+            "fold": 2,
+            "train_end": 1829,
+            "validation_start": 1830,
+            "validation_end": 1857
+        },
+        {
+            "fold": 3,
+            "train_end": 1857,
+            "validation_start": 1858,
+            "validation_end": 1885
+        }
+    ],
+    "internal_test": {
+        "train_end": 1885,
+        "test_start": 1886,
+        "test_end": 1913
+    },
+    "official_evaluation": {
+        "train_end": 1913,
+        "evaluation_start": 1914,
+        "evaluation_end": 1941
+    }
+}
