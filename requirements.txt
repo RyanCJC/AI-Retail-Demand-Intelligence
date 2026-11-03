@@ -15,6 +15,9 @@ lightgbm
 catboost
 optuna
 shap
+torch
+pytorch-forecasting
+lightning
 
 # Experiment tracking
 mlflow
