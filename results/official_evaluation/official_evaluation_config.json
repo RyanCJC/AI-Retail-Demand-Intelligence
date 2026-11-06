@@ -1,0 +1,100 @@
+{
+    "evaluation_name": "official_evaluation",
+    "forecast_origin": 1913,
+    "evaluation_start": 1914,
+    "evaluation_end": 1941,
+    "forecast_horizon": 28,
+    "series_count": 200,
+    "seed": 46,
+    "quantiles": [
+        0.1,
+        0.5,
+        0.9
+    ],
+    "seasonal_naive": {
+        "method": "latest_7_day_pattern"
+    },
+    "lightgbm": {
+        "configuration": "baseline",
+        "learning_rate": 0.05,
+        "num_leaves": 31,
+        "max_depth": -1,
+        "min_child_samples": 100,
+        "feature_fraction": 0.9,
+        "boosting_rounds": {
+            "0.1": 110,
+            "0.5": 175,
+            "0.9": 380
+        },
+        "features": [
+            "sales_at_origin",
+            "sales_lag_1",
+            "sales_lag_7",
+            "sales_lag_14",
+            "sales_lag_28",
+            "sales_rolling_mean_7",
+            "sales_rolling_std_7",
+            "sales_rolling_mean_28",
+            "sales_rolling_std_28",
+            "sales_rolling_max_28",
+            "origin_sell_price",
+            "origin_price_missing",
+            "origin_price_change",
+            "origin_price_change_pct",
+            "origin_price_vs_8w_avg",
+            "origin_price_change_flag",
+            "target_month",
+            "target_year",
+            "target_is_weekend",
+            "target_day_of_month",
+            "target_week_of_year",
+            "target_is_event_day",
+            "target_is_snap_day",
+            "horizon",
+            "item_id",
+            "dept_id",
+            "cat_id",
+            "store_id",
+            "state_id",
+            "target_weekday",
+            "target_event_name_1",
+            "target_event_type_1"
+        ],
+        "categorical_features": [
+            "item_id",
+            "dept_id",
+            "cat_id",
+            "store_id",
+            "state_id",
+            "target_weekday",
+            "target_event_name_1",
+            "target_event_type_1"
+        ]
+    },
+    "lstm": {
+        "configuration": "baseline",
+        "hidden_size": 128,
+        "num_layers": 2,
+        "dropout": 0.15,
+        "learning_rate": 0.001,
+        "weight_decay": 1e-05,
+        "batch_size": 256,
+        "epochs": 11
+    },
+    "tft": {
+        "configuration": "baseline",
+        "hidden_size": 32,
+        "attention_head_size": 4,
+        "lstm_layers": 1,
+        "dropout": 0.1,
+        "hidden_continuous_size": 16,
+        "learning_rate": 0.001,
+        "batch_size": 64,
+        "epochs": 9
+    },
+    "evaluation_protocol": {
+        "early_stopping_on_evaluation": false,
+        "hyperparameter_tuning_on_evaluation": false,
+        "evaluation_used_for_model_selection": false
+    }
+}

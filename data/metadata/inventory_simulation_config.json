@@ -1,0 +1,54 @@
+{
+    "project": "AI Retail Demand Intelligence",
+    "inventory_policy": {
+        "method": "Periodic Review Order-Up-To Policy",
+        "review_period_days": 7,
+        "target_cycle_service_level": 0.9
+    },
+    "lead_time_scenarios": [
+        {
+            "scenario": "short_lead_time",
+            "lead_time_days": 7
+        },
+        {
+            "scenario": "medium_lead_time",
+            "lead_time_days": 14
+        },
+        {
+            "scenario": "long_lead_time",
+            "lead_time_days": 21
+        }
+    ],
+    "forecast": {
+        "selected_model": "TFT",
+        "forecast_horizon": 28,
+        "quantiles": [
+            0.1,
+            0.5,
+            0.9
+        ],
+        "point_forecast": "P50",
+        "upper_demand_forecast": "P90"
+    },
+    "evaluation": {
+        "metrics": [
+            "cycle_service_level",
+            "fill_rate",
+            "stockout_rate",
+            "stockout_days",
+            "average_inventory"
+        ]
+    },
+    "initial_inventory": {
+        "method": "historical_demand_based_initialisation",
+        "value": null
+    },
+    "assumptions": [
+        "Inventory parameters are simulation assumptions, not observed M5 data.",
+        "Supplier lead time is assumed constant within each scenario.",
+        "Inventory is reviewed every seven days.",
+        "Demand is fulfilled from available inventory.",
+        "Actual unit costs and ordering costs are unavailable.",
+        "The simulation will not claim real-world cost savings."
+    ]
+}

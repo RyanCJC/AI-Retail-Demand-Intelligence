@@ -1,0 +1,19 @@
+{
+    "evaluation_period": {
+        "training_cutoff": 1885,
+        "forecast_start": 1886,
+        "forecast_end": 1913,
+        "forecast_horizon": 28
+    },
+    "series_count": 200,
+    "observation_count": 5600,
+    "models": [
+        "Seasonal Naive",
+        "LightGBM",
+        "LSTM",
+        "TFT"
+    ],
+    "best_model_by_mae": "LightGBM",
+    "best_model_by_rmse": "LightGBM",
+    "best_model_by_wape": "LightGBM"
+}

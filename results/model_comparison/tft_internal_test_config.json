@@ -1,0 +1,18 @@
+{
+    "hidden_size": 32,
+    "attention_head_size": 4,
+    "lstm_layers": 1,
+    "dropout": 0.1,
+    "hidden_continuous_size": 16,
+    "learning_rate": 0.001,
+    "batch_size": 64,
+    "epochs": 9,
+    "quantiles": [
+        0.1,
+        0.5,
+        0.9
+    ],
+    "training_time_minutes": 58.92560601631801,
+    "training_epochs": 9,
+    "validation_used_for_training": false
+}
