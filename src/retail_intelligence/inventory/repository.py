@@ -141,3 +141,23 @@ class InventoryRepository:
             order_up_to_level=policy.order_up_to_level,
             used_pooled_fallback=policy.used_pooled_fallback,
         )
+
+    
+    def get_portfolio_product_ids(
+        self,
+        origin_day_num: int,
+        lead_time: int,
+        starting_stock_ratio: float,
+    ) -> list[str]:
+
+        statement = (
+            select(InventorySnapshot.product_id)
+            .where(
+                InventorySnapshot.origin_day_num == origin_day_num,
+                InventorySnapshot.lead_time == lead_time,
+                InventorySnapshot.starting_stock_ratio == starting_stock_ratio,
+            )
+            .order_by(InventorySnapshot.product_id)
+        )
+
+        return list(self.session.scalars(statement).all())

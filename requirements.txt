@@ -28,7 +28,7 @@ mlflow
 fastapi
 uvicorn[standard]
 pydantic
-httpx
+httpx2
 
 # Testing and code quality
 pytest

@@ -38,3 +38,44 @@ class InventoryAssessmentResponse(BaseModel):
     risk_reason: str
 
     used_pooled_fallback: bool
+
+
+
+class InventoryExceptionResponse(BaseModel):
+    error_code: Literal["NEGATIVE_INVENTORY_POSITION"]
+    message: str
+    requires_human_review: bool = True
+
+
+class PortfolioAssessmentRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    origin_day_num: int = Field(gt=0)
+    lead_time: int = Field(gt=0)
+    starting_stock_ratio: float = Field(gt=0, le=1)
+
+
+
+class PortfolioItemResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    product_id: str
+    risk_level: Literal["EXCEPTION", "HIGH", "MEDIUM", "LOW"]
+    assessment: InventoryAssessmentResponse | None
+    exception_message: str | None
+
+
+class PortfolioAssessmentResponse(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    origin_day_num: int
+    lead_time: int
+    starting_stock_ratio: float
+
+    total_products: int
+    high_risk_count: int
+    medium_risk_count: int
+    low_risk_count: int
+    exception_count: int
+
+    items: list[PortfolioItemResponse]

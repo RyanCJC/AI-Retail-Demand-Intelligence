@@ -11,6 +11,12 @@ class InventoryRisk:
     risk_reason: str
 
 
+
+class NegativeInventoryPositionError(ValueError):
+    """Raised when inventory position requires operational review."""
+    pass
+
+
 def classify_inventory_risk(
     inventory_position: int,
     cumulative_p50: float,
@@ -23,7 +29,7 @@ def classify_inventory_risk(
         raise TypeError("inventory_position must be an integer.")
 
     if inventory_position < 0:
-        raise ValueError(
+        raise NegativeInventoryPositionError(
             "Negative inventory position requires an exception review."
         )
 
