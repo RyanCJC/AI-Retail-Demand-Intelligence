@@ -4,6 +4,8 @@ pandas
 polars
 pyarrow
 duckdb
+sqlalchemy
+alembic
 
 # Data visualisation
 matplotlib
@@ -26,6 +28,7 @@ mlflow
 fastapi
 uvicorn[standard]
 pydantic
+httpx
 
 # Testing and code quality
 pytest
