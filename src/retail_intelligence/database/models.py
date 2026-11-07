@@ -1,11 +1,12 @@
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy import (
     Boolean,
     DateTime,
     Float,
     ForeignKey,
+    Index,
     Integer,
     String,
     UniqueConstraint,
@@ -125,6 +126,14 @@ class InventoryPolicy(Base):
 class ReplenishmentRecommendation(Base):
     __tablename__ = "replenishment_recommendations"
 
+    __table_args__ = (
+        Index(
+            "uq_replenishment_recommendations_snapshot_id",
+            "snapshot_id",
+            unique=True,
+        ),
+    )
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     snapshot_id: Mapped[int] = mapped_column(
         ForeignKey("inventory_snapshots.id"), nullable=False
@@ -139,7 +148,7 @@ class ReplenishmentRecommendation(Base):
 
     explanation: Mapped[str | None] = mapped_column(String, nullable=True)
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow, nullable=False
+        DateTime, default=lambda: datetime.now(timezone.utc), nullable=False
     )
 
 
@@ -158,5 +167,5 @@ class ApprovalRecord(Base):
     comments: Mapped[str | None] = mapped_column(String, nullable=True)
 
     created_at: Mapped[datetime] = mapped_column(
-        DateTime, default=datetime.utcnow, nullable=False
+        DateTime, default=lambda: datetime.now(timezone.utc), nullable=False
     )

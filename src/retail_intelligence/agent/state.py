@@ -30,3 +30,9 @@ class AgentState(TypedDict, total=False):
 
     # Error handling
     llm_error: str | None
+
+    # Persistence results
+    persisted_recommendation_ids: list[int]
+    pending_approval_count: int
+    skipped_recommendation_count: int
+    persistence_error: str | None

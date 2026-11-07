@@ -1,17 +1,15 @@
-
 from langgraph.graph import END, START, StateGraph
 
+from retail_intelligence.agent.approval import (
+    persist_pending_recommendations,
+)
 from retail_intelligence.agent.nodes import (
     assess_inventory_portfolio,
+    generate_ai_explanation,
     prioritise_inventory_risks,
 )
 from retail_intelligence.agent.state import AgentState
 
-from retail_intelligence.agent.nodes import (
-    assess_inventory_portfolio,
-    prioritise_inventory_risks,
-    generate_ai_explanation,
-)
 
 def route_after_assessment(state: AgentState) -> str:
     if state.get("error"):
@@ -38,6 +36,11 @@ def build_inventory_graph():
         generate_ai_explanation,
     )
 
+    workflow.add_node(
+        "persist_recommendations",
+        persist_pending_recommendations,
+    )
+
     workflow.add_edge(START, "assess_inventory")
 
     workflow.add_conditional_edges(
@@ -54,7 +57,15 @@ def build_inventory_graph():
         "generate_explanation",
     )
 
-    workflow.add_edge("generate_explanation", END)
+    workflow.add_edge(
+        "generate_explanation",
+        "persist_recommendations",
+    )
+
+    workflow.add_edge(
+        "persist_recommendations",
+        END,
+    )
 
     return workflow.compile()
 
