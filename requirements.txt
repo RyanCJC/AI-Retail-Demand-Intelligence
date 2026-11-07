@@ -21,14 +21,16 @@ torch
 pytorch-forecasting
 lightning
 
-# Experiment tracking
-mlflow
-
 # Backend and API
 fastapi
 uvicorn[standard]
 pydantic
 httpx2
+python-dotenv
+
+# AI agent builder
+langgraph
+openai
 
 # Testing and code quality
 pytest
